@@ -3,7 +3,7 @@ class Reference
     private string _book;
     private int _chapter;
     private int _verseStart;
-    private int? _verseEnd; // Nullable for single-verse references
+    private int? _verseEnd; 
 
     public Reference(string book, int chapter, int verseStart, int? verseEnd = null)
     {
