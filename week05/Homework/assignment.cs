@@ -1,6 +1,6 @@
-class Assignment
+public class Assignment
 {
-    private string _name;
+    protected string _name;
     private string _topic;
 
     public Assignment(string name, string topic)
@@ -12,6 +12,6 @@ class Assignment
 
     public string GetSummary()
     {
-        return $"Student's name: {_name}\n Topic: {_topic}";
+        return $"Name: {_name}\nTopic: {_topic}";
     }
 }
