@@ -1,9 +1,12 @@
+using System.Security.Cryptography.X509Certificates;
+
 class Activity
 {
     private string _name;
     private string _description;
-    private int _duration;
-    public Activity(string name, string description, int duration)
+    protected string _duration;
+
+    public Activity(string name, string description, string duration)
     {
         _name = name;
         _description = description;
@@ -13,13 +16,32 @@ class Activity
     public void DisplayStartingMessage()
     {
         Console.WriteLine($"You are about to start a {_name}.\n{_description}\n");
-        Console.WriteLine("How many seconds woud you like to spend in this activity?");
-        Console.ReadLine();
+
+        Console.WriteLine("Please enter the seconds you would like to spend in this activity: ");
+        string duration = Console.ReadLine();
+
+        if (int.TryParse(duration, out int seconds) && seconds > 0)
+        {
+            Console.WriteLine($"Get ready...");
+        
+
+           // for (int i = seconds; i > 0; i--)
+           // {
+               // Console.WriteLine(i);
+                //Thread.Sleep(1000);
+
+            //}
+
+        }
     }
 
-    public void DisplayEndingMessage()
+    public void ShowCountDown()
     {
-        Console.WriteLine($"Congratulations! You have completed a {_name}. You spent {_duration} on this activity. Keep up with the good work!");
+        for (int i = 5; i > 0; i--)
+        {
+            Console.WriteLine(i);
+            Thread.Sleep(1000);
+        }
     }
 
     public void ShowSpinner()
@@ -56,24 +78,10 @@ class Activity
 
     }
 
-    public void ShowCountDown()
+
+    public void DisplayEndingMessage()
     {
-        Console.WriteLine("Please enter the seconds you would like to spend in this activity: ");
-        string input = Console.ReadLine();
-
-        if (int.TryParse(input, out int seconds) && seconds > 0)
-        {
-            Console.WriteLine($"You are about to start a {_name}");
-
-            for (int i = seconds; i > 0; i--)
-            {
-                Console.WriteLine(i);
-                Thread.Sleep(1000);
-
-            }
-
-            Console.WriteLine("Done!");
-        }
+        Console.WriteLine($"Congratulations! You have completed a {_name}. You spent {_duration} on this activity. Keep up with the good work!");
     }
 
 }
