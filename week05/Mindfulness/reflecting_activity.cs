@@ -58,7 +58,7 @@ class ReflectionActivity : Activity
 
         while (DateTime.Now < endTime)
         {
-            Console.WriteLine($"{question}");
+            Console.WriteLine($"\n{question}");
             ShowSpinner();
             Console.ReadLine();
 
