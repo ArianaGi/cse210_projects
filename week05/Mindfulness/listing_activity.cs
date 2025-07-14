@@ -2,48 +2,45 @@ using System.ComponentModel;
 
 class ListingActivity : Activity
 {
-    private int _count;
-    private List<string> _prompts;
 
-    public ListingActivity(int count, List<string> prompts, string name, string description, string duration) : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.", duration)
+    private List<string> _prompts = new List<string>
     {
-        _count = count;
-        _prompts = prompts;
+        "Who are people that you appreciate?",
+        "What are personal strengths of yours?",
+        "Who are people that you have helped this week?",
+        "When have you felt the Holy Ghost this month?",
+        "Who are some of your personal heroes?"
+    };
+
+    public ListingActivity() : base("Listing Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
+    {
+    
     }
 
-    public List<string> GetListFromUser()
-    {
-        List<string> prompts = new List<string>();
-        prompts.Add("Who are people that you appreciate?");
-        prompts.Add("What are personal strengths of yours?");
-        prompts.Add("Who are people that you have helped this week?");
-        prompts.Add("When have you felt the Holy Ghost this month?");
-        prompts.Add("Who are some of your personal heroes?");
-
-        return _prompts;
-    }
-
-    public void GetRandomPrompt()
+    private string GetRandomPrompt()
     {
         Random random = new Random();
         int index = random.Next(_prompts.Count);
         string randomPrompt = _prompts[index];
-        Console.WriteLine("Prompt: " + randomPrompt);
+        return _prompts[index];
     }
 
     public void Run()
     {
         DisplayStartingMessage();
 
-        Console.WriteLine("Take a few seconds to reflect on this prompt");
-        GetRandomPrompt();
-        ShowCountDown();
+        string prompt = GetRandomPrompt();
+        Console.WriteLine("List as many responses to the prompt as they come to your mind:");
+        Console.WriteLine($"{prompt}");
 
+        Console.WriteLine("Start listing in:");
+        ShowCountDown(5);
 
-        DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(30);
-
+        int duration = GetDuration();
+        DateTime endTime = DateTime.Now.AddSeconds(duration);
         int count = 0;
+
+        Console.WriteLine("You can start listing your items now! Please press enter after each item.");
 
         while (DateTime.Now < endTime)
         {
@@ -51,13 +48,9 @@ class ListingActivity : Activity
             Console.WriteLine("Keep adding to your list!");
 
             count++;
-            
-
         }
 
-        
-
-        Console.WriteLine($"Time's up! You listed {_count} items.");
+        Console.WriteLine($"Time's up! You listed {count} items.");
 
         DisplayEndingMessage();
 

@@ -4,7 +4,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        Activity activity = new Activity();
         bool exit = false;
 
         while (!exit)
@@ -15,6 +14,37 @@ class Program
             Console.WriteLine("2. Reflection Activity");
             Console.WriteLine("3. Listing Activity");
             Console.WriteLine("4. Exit");
+            Console.WriteLine("Please enter the number of your choice: ");
+            string choice = Console.ReadLine();
+
+
+            switch (choice)
+            {
+                case "1":
+                    BreathingActivity startBreathingActivity = new BreathingActivity();
+                    startBreathingActivity.Run();
+                    break;
+
+                case "2":
+                    ReflectionActivity startReflectionActivity = new ReflectionActivity();
+                    startReflectionActivity.Run();
+                    break;
+
+                case "3":
+                    ListingActivity startListingActivity = new ListingActivity();
+                    startListingActivity.Run();
+                    break;
+
+                case "4":
+                    exit = true;
+                    Console.WriteLine("You have exited the program successfully.");
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Please select an option from the menu.");
+                    break;
+            }
         }
-    }
+
+    } 
 }

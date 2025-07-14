@@ -2,9 +2,9 @@ using System.ComponentModel;
 
 class BreathingActivity : Activity
 {
-    public BreathingActivity(string duration) : base("Breathing Activity", "\nThis activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.", duration)
+    private List<string> _breathe = new List<string> { "Breathe in...", "Breathe out..." };
+    public BreathingActivity() : base("Breathing Activity", "\nThis activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.")
     {
-        _duration = duration;
 
     }
 
@@ -12,27 +12,26 @@ class BreathingActivity : Activity
     {
         DisplayStartingMessage();
 
-        List<string> breathe = new List<string>();
-        breathe.Add("Breathe in...");
-        breathe.Add("Breathe out...");
-
         DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(5);
-
-        int i = 0;
+        DateTime endTime = startTime.AddSeconds(GetDuration());
+        int breatheIndex = 0;
 
         while (DateTime.Now < endTime)
         {
-            string message = breathe[i];
-            Console.Write(message);
-            ShowCountDown();
-            Thread.Sleep(5000);
+            string breathe = _breathe[breatheIndex];
+            Console.Write(breathe + " ");
 
-            i++;
-
-            if (i >= breathe.Count)
+            for (int countdown = 5; countdown >= 1; countdown--)
             {
-                i = 0;
+                Console.Write($"{countdown}\n");
+                Thread.Sleep(1000);
+            }
+
+            breatheIndex++;
+
+            if (breatheIndex >= _breathe.Count)
+            {
+                breatheIndex = 0;
             }
         }
 
