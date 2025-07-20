@@ -1,13 +1,13 @@
 public class EternalGoal : Goals
 {
-    public EternalGoal() : base("", "", 200)
+    public EternalGoal(string goalName, string description, int points) : base(goalName, description, points)
     {
 
     }
 
-    public override void RecordEvent()
+    public override int RecordEvent()
     {
-        Console.WriteLine($"Great job! You earned {_points} points for completing your Eternal Goal. Earn more points as you keep working on this eternal goal!");
+        return _points;
     }
 
     public override bool isComplete()
@@ -15,8 +15,13 @@ public class EternalGoal : Goals
         return false;
     }
 
+    public override string GetDetails()
+    {
+        throw new NotImplementedException();
+    }
+
     public override string GetStringRepresentation()
     {
-        return $"{GetGoalName} | {GetDescription} | Points: {_points}";
+        return $"EternalGoal|{GetGoalName()}|{GetDescription()}|{_points}";
     }
 }

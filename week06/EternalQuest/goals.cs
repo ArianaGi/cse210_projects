@@ -3,17 +3,45 @@ public abstract class Goals
     private string _goalName;
     protected int _points;
     private string _description;
-    private bool _isComplete;
+    //private bool _isComplete;
 
     public Goals(string goalName, string description, int points)
     {
         _goalName = goalName;
         _points = points;
         _description = description;
-        _isComplete = false;
+    }
+    
+     public string GoalName => _goalName;
+     public string Description => _description;
+     public int Points => _points;
+
+
+    public static Goals CreateGoalFromString(string line)
+    {
+        string[] parts = line.Split('|');
+        string type = parts[0];
+
+        switch (type)
+        {
+            case "SimpleGoal":
+                return new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
+
+            case "EternalGoal":
+                return new EternalGoal(parts[1], parts[2], int.Parse(parts[3]));
+
+            case "ChecklistGoal":
+                return new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), int.Parse(parts[5]));
+
+            default:
+                throw new Exception("Unknown goal type.");
+        }
     }
 
-    public abstract void RecordEvent();
+    public virtual int RecordEvent()
+    {
+        return 0;
+    }
 
     public abstract bool isComplete();
 
@@ -27,7 +55,7 @@ public abstract class Goals
         return _description;
     }
 
-    public string setCheckBox()
+    /*public string setCheckBox()
     {
         string complete = "[✔]";
         string incomplete = "[ ]";
@@ -40,12 +68,9 @@ public abstract class Goals
         {
             return incomplete; 
         }
-    }
+    }*/
 
-    public virtual string GetDetails()
-    {
-        return $"Goal details: \n{setCheckBox} {_goalName} {_points}";
-    }
+    public abstract string GetDetails();
 
     public abstract string GetStringRepresentation();
 }
