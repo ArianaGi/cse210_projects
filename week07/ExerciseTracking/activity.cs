@@ -9,44 +9,28 @@ public abstract class Activity
     private double _pace;
     private List<DateTime> _dateTracking;
 
-    public Activity(string name, double minutes, double distance, double speed, double pace)
+    public Activity(string name, double minutes, double distance)
     {
         _name = name;
         _minutes = minutes;
         _distance = distance;
-        _speed = 60 / _pace;
-        _pace = 60 / _speed;
-        _dateTracking = new List<DateTime>();
+        _speed = (minutes > 0) ? (distance / minutes) *60 : 0;
+        _pace = (distance > 0) ? minutes / distance : double.PositiveInfinity;
+        _dateTracking = new List<DateTime> {DateTime.Now};
     }
 
-    public string GetName()
-    {
-        return _name;
-    }
+    public string GetName() => _name;
 
-    public double GetLength()
-    {
-        return _minutes;
-    }
+    public double GetLength() => _minutes;
 
-    public virtual double GetDistance()
-    {
-        return _distance;
-    }
+    public virtual double GetDistance() => _distance;
 
-    public virtual double GetSpeed()
-    {
-        return _speed;
-    }
-    public virtual double GetPace()
-    {
-        return _pace;
-    }
+    public virtual double GetSpeed() => _speed;
+    public virtual double GetPace() => _pace;
 
     public string GetSummary()
     {
-        return $"Date: {DateTime.Now} {_name}:\n{_minutes} minutes\nDistance: {_distance} miles\nSpeed: {_speed} mph\nPace: {_pace} min/km";
+        return $"Date: {DateTime.Now} {_name}:\n{_minutes} minutes\nDistance: {_distance} miles\nSpeed: {_speed:F2} mph\nPace: {_pace:F2} min/mile";
     }
-
 
 }
