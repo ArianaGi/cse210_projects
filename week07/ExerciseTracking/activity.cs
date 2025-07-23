@@ -1,4 +1,5 @@
-using System.Runtime.InteropServices.Marshalling;
+using System; 
+using System.Collections.Generic; 
 
 public abstract class Activity
 {
@@ -14,23 +15,38 @@ public abstract class Activity
         _name = name;
         _minutes = minutes;
         _distance = distance;
-        _speed = (minutes > 0) ? (distance / minutes) *60 : 0;
+        _speed = (minutes > 0) ? (distance / minutes) * 60 : 0;
         _pace = (distance > 0) ? minutes / distance : double.PositiveInfinity;
-        _dateTracking = new List<DateTime> {DateTime.Now};
+        _dateTracking = new List<DateTime> { DateTime.Now };
     }
 
-    public string GetName() => _name;
+    public string GetName()
+    {
+        return _name;
+    }
 
-    public double GetLength() => _minutes;
+    public double GetLength()
+    {
+        return _minutes;
+    }
 
-    public virtual double GetDistance() => _distance;
+    public virtual double GetDistance()
+    {
+        return _distance;
+    }
 
-    public virtual double GetSpeed() => _speed;
-    public virtual double GetPace() => _pace;
+    public virtual double GetSpeed()
+    {
+        return _speed;
+    }
+
+    public virtual double GetPace()
+    {
+        return _pace;
+    }
 
     public string GetSummary()
     {
         return $"Date: {DateTime.Now} {_name}:\n{_minutes} minutes\nDistance: {_distance} miles\nSpeed: {_speed:F2} mph\nPace: {_pace:F2} min/mile";
     }
-
 }

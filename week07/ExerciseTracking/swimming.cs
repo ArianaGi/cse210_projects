@@ -13,10 +13,18 @@ public class Swimming : Activity
 
     }
 
-    public override double GetDistance() => _Distance;
+    public override double GetDistance()
+    {
+        return _Distance;
+    }
 
-    public override double GetSpeed() => _Speed;
+    public override double GetSpeed()
+    {
+        return _Speed;
+    }
 
-    public override double GetPace() => _Pace;
-    
+    public override double GetPace()
+    {
+        return _Pace;
+    }
 }
